@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private CalendarView mEndDateCalendar;
     private Button mBtnOK;
     private long mStartDate;
-    private String mStartDateTxt;
+    private String mStartDateTxt = "";
     private long mEndDate;
-    private String mEndDateTxt;
+    private String mEndDateTxt = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +71,16 @@ public class MainActivity extends AppCompatActivity {
         mBtnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mStartDate > mEndDate){
-                    Toast.makeText(MainActivity.this, getText(R.string.error_message), Toast.LENGTH_LONG).show();
-                    mChooseStartDate.setText(getText(R.string.start));
-                    mChooseEndDate.setText(getText(R.string.end));
+                if (mStartDateTxt.isEmpty() || mEndDateTxt.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Все данные должны быть заполнены", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this, getString(R.string.result_text, mStartDateTxt,mEndDateTxt), Toast.LENGTH_LONG).show();
+                    if (mStartDate > mEndDate){
+                        Toast.makeText(MainActivity.this, getText(R.string.error_message), Toast.LENGTH_LONG).show();
+                        mChooseStartDate.setText(getText(R.string.start));
+                        mChooseEndDate.setText(getText(R.string.end));
+                    } else {
+                        Toast.makeText(MainActivity.this, getString(R.string.result_text, mStartDateTxt,mEndDateTxt), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
